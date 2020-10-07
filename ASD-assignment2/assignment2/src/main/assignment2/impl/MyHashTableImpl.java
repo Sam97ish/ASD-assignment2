@@ -5,6 +5,7 @@ import main.assignment2.MyMap;
 public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSize {
     private static final int DEFAULT_TABLE_SIZE = 11;
     private MapEntryImpl<K, V>[] array;
+    private int currentSize;
 
 
     private double MAXIMUM_ALLOWED_LOAD_FACTOR; // This is the load factor that the table can never exceed. However, it
@@ -17,6 +18,7 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
     public MyHashTableImpl(double MAX_LOAD_FACTOR) {
         MAXIMUM_ALLOWED_LOAD_FACTOR = MAX_LOAD_FACTOR;
         array = new MapEntryImpl[DEFAULT_TABLE_SIZE];
+        currentSize = 0;
         // Here you need to create the array. It is not possible to create a new array
         // of generic type in Java. You can use any of the methods to simulate the
         // generic-like array; this assignment does not restrict the method to use for that.
@@ -74,6 +76,28 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         return hashVal;
     }
 
+    private int findPos(K x){
+        int offset = 1;
+        int currentPos = myhash(x);
+        int counter = 0;
+
+        while(array[currentPos] !=null && !array[currentPos].getKey().equals(x)) {
+            currentPos += offset;
+            offset += 2;
+
+            if(!array[currentPos].isActive()) {
+                
+            }
+            if(currentPos >= array.length)
+                currentPos -= array.length;
+        }
+        return currentPos;
+    }
+
+    private boolean isActive (int currentPos){
+        return array[currentPos] != null && array[currentPos].isActive();
+    }
+
     @Override
     public int getLengthOfArray() {
         return array.length;
@@ -82,12 +106,41 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
     @Override
     public void insert(K key, V value) {
         // TODO Auto-generated method stub
+        int currentPos = findPos(key);
 
+        if(array[currentPos].getKey().equals(key)){
+            MapEntryImpl map = array[currentPos];
+            map.setValue(value);
+            return;
+        }
+
+        array[currentPos] = new MapEntryImpl<K, V>(key, value, true);
+
+        currentSize++;
+        double currentLoadFactor = currentSize / array.length;
+
+        if (currentLoadFactor > MAXIMUM_ALLOWED_LOAD_FACTOR)
+            rehash();
+
+
+    }
+
+    private void rehash() {
+        MapEntryImpl<K,V>[] oldArray = array;
+        array = new MapEntryImpl[nextPrime(2 * oldArray.length)];
+        currentSize = 0;
+
+        for(int i = 0; i < oldArray.length; i++) {
+            if(oldArray[i] != null && oldArray[i].isActive())
+                insert(oldArray[i].getKey(), oldArray[i].getValue());
+        }
     }
 
     @Override
     public void delete(K key) {
         // TODO Auto-generated method stub
+        int currentPos = findPos(key);
+
 
     }
 
