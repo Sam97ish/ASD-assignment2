@@ -78,24 +78,48 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
 
     private int findPos(K x){
         int offset = 1;
-        int currentPos = myhash(x);
+        int defaultPos = myhash(x);
+        int currentPos = defaultPos;
         int counter = 0;
 
-        while(array[currentPos] !=null && !array[currentPos].getKey().equals(x)) {
-            currentPos += offset;
-            offset += 2;
+        // System.out.println(array.length);
 
+        while(array[currentPos] !=null && !array[currentPos].getKey().equals(x)) {
             if(!array[currentPos].isActive()) {
-                
+                break;
             }
-            if(currentPos >= array.length)
-                currentPos -= array.length;
+            System.out.println("Here yo");
+            currentPos = ((int) Math.pow(offset, 2) + defaultPos) % array.length;
+            offset ++;
+            counter++;
+
+            // System.out.println(currentPos);
+           /* if(currentPos >= array.length)
+                currentPos = currentPos % array.length;*/
+
+            if (counter == array.length -1) {
+                return -1;
+            }
+
+
         }
         return currentPos;
     }
 
     private boolean isActive (int currentPos){
         return array[currentPos] != null && array[currentPos].isActive();
+    }
+
+    public String toString(){
+        String str ="";
+        for (int i = 0; i < array.length; i++){
+            if(array[i] != null )
+               str += "pos [" + i + "]: "+ array[i].getValue() + " " + array[i].isActive() + "\n";
+            else {
+                str += "pos [" + i + "]: null" + "\n";
+            }
+        }
+        return str;
     }
 
     @Override
@@ -107,8 +131,9 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
     public void insert(K key, V value) {
         // TODO Auto-generated method stub
         int currentPos = findPos(key);
+        System.out.println(currentPos);
 
-        if(array[currentPos].getKey().equals(key)){
+        if(array[currentPos]!= null && array[currentPos].getKey().equals(key)){
             MapEntryImpl map = array[currentPos];
             map.setValue(value);
             return;
@@ -117,10 +142,12 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         array[currentPos] = new MapEntryImpl<K, V>(key, value, true);
 
         currentSize++;
-        double currentLoadFactor = currentSize / array.length;
+        double currentLoadFactor = (double) currentSize / (double) array.length;
 
-        if (currentLoadFactor > MAXIMUM_ALLOWED_LOAD_FACTOR)
+        if (currentLoadFactor > MAXIMUM_ALLOWED_LOAD_FACTOR) {
+            System.out.println("I am here");
             rehash();
+        }
 
 
     }
@@ -140,6 +167,13 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
     public void delete(K key) {
         // TODO Auto-generated method stub
         int currentPos = findPos(key);
+        if(currentPos == -1){
+            return;
+        }
+        if(isActive(currentPos)) {
+            System.out.println("I am here in the hood");
+            array[currentPos].setActive(false);
+        }
 
 
     }
