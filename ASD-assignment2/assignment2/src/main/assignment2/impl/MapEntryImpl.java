@@ -4,14 +4,20 @@ public class MapEntryImpl<K, V> {
 
     private K key;
     private V value;
+    private boolean isActive;
 
-    public MapEntryImpl(K key, V value) {
+    public MapEntryImpl(K key, V value, boolean isActive) {
 	this.key = key;
 	this.value = value;
+	this.isActive = isActive;
     }
 
     public K getKey() {
 	return key;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 
     public void setKey(K key) {
