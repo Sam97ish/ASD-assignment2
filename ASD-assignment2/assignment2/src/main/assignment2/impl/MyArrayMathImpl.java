@@ -24,8 +24,8 @@ public class MyArrayMathImpl implements ArrayMath {
     BinaryHeap heap2 = new BinaryHeap(size2+1);
     boolean same = true;
     for(int i = 0; i < size1; i++){
-        // average of insertion in heap is O(1) * N = O(N) average. Worst is O(LogN),
-        //which leads to O(NLogN) worst case.
+        // average of insertion in heap is O(1) * N = O(N) average-case. Worst is O(LogN),
+        //which leads to O(NLogN) worst-case.
         heap1.insert(array1[i]);
         heap2.insert(array2[i]);
 
@@ -40,6 +40,12 @@ public class MyArrayMathImpl implements ArrayMath {
 	return same;
     }
 
+    /**
+     * @complexity: worse-case O(NlogN)
+     * @param array1
+     * @param array2
+     * @return the diff between the values of arr1, arr2.
+     */
     @Override
     public int minDifferences(int[] array1, int[] array2) {
 	// TODO Auto-generated method stub
@@ -55,7 +61,7 @@ public class MyArrayMathImpl implements ArrayMath {
             heap2.insert(array2[i]);
         }
         int sum = 0;
-        for(int i = 0; i< size1; i++){// worst case O(NLogN) because deleteMin is O(LogN).
+        for(int i = 0; i< size1; i++){// worst case O(NLogN) because deleteMin is O(LogN) each.
             int first= heap1.deleteMin();
             int second = heap2.deleteMin();
             int both = first - second;

@@ -11,6 +11,11 @@ public class BinaryHeap {
         this.currentsize = 0;
     }
 
+    /**
+     * @role: inserts an element into binary heap.
+     * @param x integer.
+     * @complexity: O(LogN) worst-case, O(1) average-case.
+     */
     public void insert(Integer x){
 
         if(currentsize == arr.length -1){
@@ -25,6 +30,12 @@ public class BinaryHeap {
         }
         arr[hole] = x;
     }
+
+    /**
+     * @role: enlarges the array
+     * @param nm int.
+     * @complexity: O(N).
+     */
     private void enlargeArray(int nm){
         Integer tmp[] = new Integer[nm];
         for(int i =1; i <= currentsize; i++){
@@ -34,10 +45,16 @@ public class BinaryHeap {
         arr = tmp;
     }
 
+    /**
+     * @param i int.
+     * @return the element at index i.
+     * @complexity: O(1).
+     */
     public int get(int i){
         return arr[i];
     }
 
+    //for debugging purposes.
     public void printHeap(){
 
         for(int i =1; i <= currentsize; i++){
@@ -46,13 +63,27 @@ public class BinaryHeap {
 
     }
 
+    /**
+     * @return min value in heap.
+     * @complexity: O(1).
+     */
     private int findMin(){
         return arr[1];
     }
+
+    /**
+     * @return true if heap is empty.
+     * @complexity: O(1).
+     */
     private boolean isEmpty(){
         return currentsize == 0;
     }
 
+    /**
+     * @role: perlocates down the heap to keep the heap property intact.
+     * @param hole int.
+     * @complexity : O(LogN).
+     */
     private void percolateDown(int hole){
         int child;
         int tmp = arr[hole];
@@ -69,6 +100,12 @@ public class BinaryHeap {
         }
         arr[hole] = tmp;
     }
+
+    /**
+     * @role: deletes the min value of the heap.
+     * @return the min value of the heap.
+     * @complexity: O(LogN).
+     */
     public int deleteMin(){
         if(isEmpty()){
             throw new BufferUnderflowException();
