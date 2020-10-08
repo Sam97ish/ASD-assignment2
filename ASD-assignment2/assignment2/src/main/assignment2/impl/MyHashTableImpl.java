@@ -1,7 +1,7 @@
 package main.assignment2.impl;
 
-import main.assignment2.ArrayWithPublishedSize;
-import main.assignment2.MyMap;
+import main.assignment2.*;
+
 public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSize {
     private static final int DEFAULT_TABLE_SIZE = 11;
     private MapEntryImpl<K, V>[] array;
