@@ -5,7 +5,7 @@ import main.assignment2.MyMap;
 public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSize {
     private static final int DEFAULT_TABLE_SIZE = 11;
     private MapEntryImpl<K, V>[] array;
-    private int currentSize;
+    public int currentSize;
 
 
     private double MAXIMUM_ALLOWED_LOAD_FACTOR; // This is the load factor that the table can never exceed. However, it
@@ -133,9 +133,15 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         int currentPos = findPos(key);
         System.out.println(currentPos);
 
-        if(array[currentPos]!= null && array[currentPos].getKey().equals(key)){
+    /*    if(array[currentPos]!= null && array[currentPos].getKey().equals(key)){
             MapEntryImpl map = array[currentPos];
             map.setValue(value);
+            map.setActive(true);
+            return;
+        }*/
+        if(currentPos < 0){
+            rehash();
+            insert(key, value);
             return;
         }
 
@@ -145,7 +151,7 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         double currentLoadFactor = (double) currentSize / (double) array.length;
 
         if (currentLoadFactor > MAXIMUM_ALLOWED_LOAD_FACTOR) {
-            System.out.println("I am here");
+            System.out.println("In the loading factor " + currentLoadFactor);
             rehash();
         }
 
@@ -173,6 +179,7 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         if(isActive(currentPos)) {
             System.out.println("I am here in the hood");
             array[currentPos].setActive(false);
+            currentSize --;
         }
 
 
@@ -181,7 +188,12 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
     @Override
     public V contains(K key) {
         // TODO Auto-generated method stub
-        return null;
+        int currentPos = findPos(key);
+        if(isActive(currentPos)){
+            return array[currentPos].getValue();
+        } else {
+            return null;
+        }
     }
 
 }

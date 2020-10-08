@@ -20,7 +20,7 @@ class TestMyHashTableImpl {
 
 	dictionary.insert(ADT, ADT_MEANING);
 	Assertions.assertNotNull(dictionary.contains(ADT));
-	Assertions.assertEquals(ADT_MEANING, dictionary.contains(ADT_MEANING));
+	Assertions.assertEquals(ADT_MEANING, dictionary.contains(ADT));
 
     }
 
