@@ -20,6 +20,10 @@ public class MapEntryImpl<K, V> {
         return isActive;
     }
 
+    public void setActive(boolean bool) {
+        this.isActive = bool;
+    }
+
     public void setKey(K key) {
 	this.key = key;
     }
