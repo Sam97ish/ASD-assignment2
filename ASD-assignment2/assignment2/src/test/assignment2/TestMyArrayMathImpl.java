@@ -3,7 +3,7 @@ package test.assignment2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import main.assignment2.ArrayMath;
+import main.assignment2.*;
 import main.assignment2.impl.MyArrayMathImpl;
 
 class TestMyArrayMathImpl {
