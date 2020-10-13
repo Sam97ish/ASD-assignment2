@@ -88,7 +88,7 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
             if(!array[currentPos].isActive()) {
                 break;
             }
-            System.out.println("Here yo");
+            //System.out.println("Here yo");
             currentPos = ((int) Math.pow(offset, 2) + defaultPos) % array.length;
             offset ++;
             counter++;
@@ -131,7 +131,7 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
     public void insert(K key, V value) {
         // TODO Auto-generated method stub
         int currentPos = findPos(key);
-        System.out.println(currentPos);
+        //System.out.println(currentPos);
 
     /*    if(array[currentPos]!= null && array[currentPos].getKey().equals(key)){
             MapEntryImpl map = array[currentPos];
@@ -151,7 +151,7 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         double currentLoadFactor = (double) currentSize / (double) array.length;
 
         if (currentLoadFactor > MAXIMUM_ALLOWED_LOAD_FACTOR) {
-            System.out.println("In the loading factor " + currentLoadFactor);
+            //System.out.println("In the loading factor " + currentLoadFactor);
             rehash();
         }
 
@@ -177,7 +177,7 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
             return;
         }
         if(isActive(currentPos)) {
-            System.out.println("I am here in the hood");
+            //System.out.println("I am here in the hood");
             array[currentPos].setActive(false);
             currentSize --;
         }

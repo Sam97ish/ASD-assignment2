@@ -4,7 +4,7 @@ import main.assignment2.ArrayMath;
 
 public class Main {
     public static void main(String[] args) {
-
+        /*
         MyHashTableImpl hash = new MyHashTableImpl(0.98);
         hash.insert(4, 1);
         hash.insert(3, 2);
@@ -26,7 +26,7 @@ public class Main {
         hash.delete(49);
         System.out.println(hash);
         System.out.println(hash.contains(49));
-
+        */
 
 
         /*
@@ -52,14 +52,17 @@ public class Main {
         int[] array2 = { 1, 10, 7, 10 };
         int[] array3 = { 10, 1, 7, 9 };
         ArrayMath mymath = new MyArrayMathImpl();
-        System.out.println(mymath.isSameCollection(array1,array2));
-        System.out.println(mymath.isSameCollection(array1,array3));
-         */
+        System.out.println(mymath.isSameCollection(array1,array2)); //expecting true.
+        System.out.println(mymath.isSameCollection(array1,array3)); //expecting false.
+        */
 
+        /*
         //testing second method in ex2.
         int[] array1 = { 2, 5, 3, 9 };
         int[] array2 = { 15, 12, 1, 3 };
         ArrayMath mymath = new MyArrayMathImpl();
         System.out.println(mymath.minDifferences(array1, array2)); //expected 86.
+        */
+
     }
 }
