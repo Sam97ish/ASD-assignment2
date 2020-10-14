@@ -64,5 +64,17 @@ public class Main {
         System.out.println(mymath.minDifferences(array1, array2)); //expected 86.
         */
 
+        /*
+        //testing third method in ex2.
+        ArrayMath mymath = new MyArrayMathImpl();
+        int[] example = {20000, 160, -2, 4, 100, 6, 120, 8, 140, 1800};
+        int lower = 10;
+        int upper = 50;
+        int[] answer = mymath.getPercentileRange(example,lower,upper);
+        //expected = [4,6,8,100].
+        for (int j : answer) {
+            System.out.println(j);
+        }
+        */
     }
 }

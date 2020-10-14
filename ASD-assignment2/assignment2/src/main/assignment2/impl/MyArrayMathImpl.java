@@ -3,11 +3,12 @@ package main.assignment2.impl;
 import main.assignment2.*;
 
 public class MyArrayMathImpl implements ArrayMath {
+    private int CUTOFF = 10;
 
     /**
      * @complexity: average O(N), worst-case O(NLogN).
-     * @param array1
-     * @param array2
+     * @param array1 - first array
+     * @param array2 - second array
      * @return true if array1, array2 are the same collection
      */
     @Override
@@ -21,8 +22,8 @@ public class MyArrayMathImpl implements ArrayMath {
             return false;
         }
 
-        MyHashTableImpl<Integer,Integer> hash1 = new MyHashTableImpl(0.5);
-        MyHashTableImpl<Integer,Integer> hash2 = new MyHashTableImpl(0.5);
+        MyHashTableImpl<Integer,Integer> hash1 = new MyHashTableImpl<>(0.5);
+        MyHashTableImpl<Integer,Integer> hash2 = new MyHashTableImpl<>(0.5);
 
         for(int i = 0; i < size1; i++){// insert is average case O(1) * N (size of array).
             hash1.insert(array1[i], array1[i]);
@@ -30,8 +31,6 @@ public class MyArrayMathImpl implements ArrayMath {
         }
 
         boolean same = true;
-        System.out.println(hash1);
-        System.out.println(hash2);
         for(int i = 0; i < size1 & same; i++){ // contains is average time O(1) * N (size of array).
 
             Integer value1 = hash1.contains(array2[i]);
@@ -50,8 +49,8 @@ public class MyArrayMathImpl implements ArrayMath {
 
     /**
      * @complexity: worse-case O(NlogN)
-     * @param array1
-     * @param array2
+     * @param array1 - provided array
+     * @param array2 - provided array
      * @return the diff between the values of arr1, arr2.
      */
     @Override
@@ -81,21 +80,21 @@ public class MyArrayMathImpl implements ArrayMath {
 
     /**
      * @role: swaps the two values in the array a.
-     * @param a
-     * @param first
-     * @param sec
+     * @param a - array
+     * @param first - first index
+     * @param sec - second index
      */
     private void swapReferences(Integer[] a, int first, int sec){
         Integer tmp = a[first];
-        a[first] = sec;
+        a[first] = a[sec];
         a[sec] = tmp;
     }
 
     /***
      * @role: orders the left right and median and hides the pivot.
-     * @param a
-     * @param left
-     * @param right
+     * @param a - array
+     * @param left - left index
+     * @param right - right index
      * @return median (pivot).
      */
     private int median3(Integer[] a, int left, int right){
@@ -118,25 +117,69 @@ public class MyArrayMathImpl implements ArrayMath {
 
     }
 
-    private void quickselect(int[] a, int left, int right, int lowerbound, int upperbound){
+    /**
+     * @role sorts the demanded range so that the correct percentile be returned.
+     * @param a - array
+     * @param left - left index
+     * @param right - right index
+     * @param lowerbound - lowerbound
+     * @param upperbound - upperbound
+     * @complexity: average O(N).
+     */
+    private void quickselect(Integer[] a, int left, int right, int lowerbound, int upperbound){
 
-        if(left + CUTOFF <= right){
+        if(left + this.CUTOFF <= right){
             int pivot = median3(a, left, right);
 
             //begin partitioning
             int i = left, j = right-1;
+            for(;;){
+
+                while(a[++i].compareTo(pivot) < 0){
+
+                }
+                while(a[--j].compareTo(pivot) > 0){
+
+                }
+
+                if(i<j){
+                    swapReferences(a, i, j);
+                }else{
+                    break;
+                }
+            }
+
+            swapReferences(a, i, right-1);//restore pivot. i is now index of pivot
+
+            //comparing index of pivot with range.
+            if(i < lowerbound){ // range to the right of pivot
+
+                quickselect(a, i+1, right, lowerbound, upperbound);
+
+            }else if( i > upperbound){ // range to left of pivot
+
+                quickselect(a, left, i-1, lowerbound, upperbound);
+
+            }else if(i >= lowerbound && i <= upperbound){ //pivot inside range.
+
+                quickselect(a, i+1, right, lowerbound, upperbound);
+                quickselect(a, left, i-1, lowerbound, upperbound);
+
+            }
 
 
+        }else{
+            selectionSort(a, left,right);
         }
 
 
     }
 
     /*Function to sort array using insertion sort*/
-    void selectionSort(int arr[])
+    void selectionSort(Integer[] arr, int left, int right)
     {
-        int n = arr.length;
-        for (int i = 1; i < n; ++i) {
+        int n = right - left + 1;
+        for (int i = left+1; i < n; ++i) {
             int key = arr[i];
             int j = i - 1;
 
@@ -151,6 +194,14 @@ public class MyArrayMathImpl implements ArrayMath {
         }
     }
 
+    /***
+     * @role: finds and returns the required Percentile
+     * @param arr - given array
+     * @param lower - range
+     * @param upper - range
+     * @return list of int
+     * @complexity: average O(N) since quickselect only takes O(N) on average.
+     */
     @Override
     public int[] getPercentileRange(int[] arr, int lower, int upper) {
 	// TODO Auto-generated method stub
@@ -165,21 +216,28 @@ public class MyArrayMathImpl implements ArrayMath {
             return arr;
         }
 
-        quickselect(arr,0, arr.length-1, lower, upper); //sorting the range only
+        //converting the list from int[] to Integer[] because we need compareTo in quickSelect.
+        Integer[] arrToBeSorted = new Integer[arr.length];
+        for(int i = 0; i<arr.length; i++){
+            arrToBeSorted[i] = arr[i];
+        }
 
         //calculating the right index of the percintile.
         int eachelm = 100 / arr.length;
 
         int lowerindex = lower / eachelm;
 
-        int upperindex = upper / eachelm;
+        int upperindex = (upper / eachelm) - 1;
+
+        quickselect(arrToBeSorted,0, arr.length-1, lowerindex, upperindex); //sorting the range only
+
+
 
         int[] perArray = new int[upperindex - lowerindex + 1];
 
         for(int i = 0; i<perArray.length; i++){
-            perArray[i] = arr[i+lowerindex];
+            perArray[i] = arrToBeSorted[i+lowerindex];
         }
-
 	return perArray;
     }
 
