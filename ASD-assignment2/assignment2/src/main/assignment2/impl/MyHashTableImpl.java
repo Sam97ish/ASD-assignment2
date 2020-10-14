@@ -3,9 +3,9 @@ package main.assignment2.impl;
 import main.assignment2.*;
 
 public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSize {
-    private static final int DEFAULT_TABLE_SIZE = 11;
+    private static final int DEFAULT_TABLE_SIZE = 11; // The default table size
     private MapEntryImpl<K, V>[] array;
-    public int currentSize;
+    public int currentSize; // The current size of the array.
 
 
     private double MAXIMUM_ALLOWED_LOAD_FACTOR; // This is the load factor that the table can never exceed. However, it
@@ -23,6 +23,13 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         // of generic type in Java. You can use any of the methods to simulate the
         // generic-like array; this assignment does not restrict the method to use for that.
     }
+
+    /**
+     * Private method used by nextPrime
+     * to gen the next prime
+     * @param n - The nunber to checked
+     * @return
+     */
 
     private static boolean isPrime(int n)
     {
@@ -43,6 +50,13 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
 
     // Function to return the smallest
     // prime number greater than N
+
+    /**
+     * Function to return the smallest prime number greater than
+     * N
+     * @param N
+     * @return
+     */
     private static int nextPrime(int N)
     {
 
@@ -66,6 +80,12 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         return prime;
     }
 
+    /**
+     * Function that returns a hash of a given input
+     * @param x - The input that is to be hashed
+     * @return
+     */
+
     private int myhash(K x) {
         int hashVal = x.hashCode();
 
@@ -76,24 +96,27 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         return hashVal;
     }
 
+    /**
+     * The fucntion that finds a postion for a given key
+     * and performs the quadratic probing
+     * @param x - The key
+     * @return int
+     */
+
     private int findPos(K x){
         int offset = 1;
         int defaultPos = myhash(x);
         int currentPos = defaultPos;
         int counter = 0;
 
-        // System.out.println(array.length);
-
         while(array[currentPos] !=null && !array[currentPos].getKey().equals(x)) {
             if(!array[currentPos].isActive()) {
                 break;
             }
-            //System.out.println("Here yo");
             currentPos = ((int) Math.pow(offset, 2) + defaultPos) % array.length;
             offset ++;
             counter++;
 
-            // System.out.println(currentPos);
            /* if(currentPos >= array.length)
                 currentPos = currentPos % array.length;*/
 
@@ -105,6 +128,12 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         }
         return currentPos;
     }
+
+    /**
+     * Checks if a given position is free or not
+     * @param currentPos - The position that is to be checked
+     * @return boolean if empty or not
+     */
 
     private boolean isActive (int currentPos){
         return array[currentPos] != null && array[currentPos].isActive();
@@ -122,16 +151,25 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
         return str;
     }
 
+    /**
+     * Returns the length of the array.
+     * @return
+     */
     @Override
     public int getLengthOfArray() {
         return array.length;
     }
 
+    /**
+     * Does the usuall insertion
+     * @param key - The key that is to be inserted
+     * @param value - The value corresponding with the key
+     */
+
     @Override
     public void insert(K key, V value) {
         // TODO Auto-generated method stub
         int currentPos = findPos(key);
-        //System.out.println(currentPos);
 
     /*    if(array[currentPos]!= null && array[currentPos].getKey().equals(key)){
             MapEntryImpl map = array[currentPos];
@@ -158,6 +196,11 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
 
     }
 
+    /**
+     * The reshahs that is callec when the hashtable reaches a certain lood
+     * factor or when an insert fails.
+     */
+
     private void rehash() {
         MapEntryImpl<K,V>[] oldArray = array;
         array = new MapEntryImpl[nextPrime(2 * oldArray.length)];
@@ -168,6 +211,11 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
                 insert(oldArray[i].getKey(), oldArray[i].getValue());
         }
     }
+
+    /**
+     * Performs lazy deletion by marking the spot as DELETED.
+     * @param key - The key that is to be deleted.
+     */
 
     @Override
     public void delete(K key) {
@@ -184,6 +232,13 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
 
 
     }
+
+    /**
+     * Checks if a key is present in the hashtable and returns the value associated
+     * with the key, if not then it returns null.
+     * @param key
+     * @return
+     */
 
     @Override
     public V contains(K key) {
