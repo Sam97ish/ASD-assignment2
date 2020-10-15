@@ -26,11 +26,23 @@ public class MyArrayMathImpl implements ArrayMath {
         MyHashTableImpl<Integer,Integer> hash2 = new MyHashTableImpl<>(0.5);
 
         for(int i = 0; i < size1; i++){// insert is average case O(1) * N (size of array).
-            hash1.insert(array1[i], array1[i]);
-            hash2.insert(array2[i], array2[i]);
+            hash1.insertForIsSame(array1[i], 1);
+            hash2.insertForIsSame(array2[i], 1);
         }
 
         boolean same = true;
+
+        for(int i = 0; i < size1 & same; i++) {
+            Integer value = hash1.contains(array2[i]);
+            Integer value2 = hash2.contains(array2[i]);
+            if (value == null || value2 == null){
+                same = false;
+            } else {
+                same = value.equals(value2);
+            }
+        }
+
+       /* boolean same = true;
         for(int i = 0; i < size1 & same; i++){ // contains is average time O(1) * N (size of array).
 
             Integer value1 = hash1.contains(array2[i]);
@@ -42,7 +54,7 @@ public class MyArrayMathImpl implements ArrayMath {
                 same = value1.equals(value2);
             }
 
-        }
+        }*/
 
         return same;
     }
@@ -176,7 +188,7 @@ public class MyArrayMathImpl implements ArrayMath {
     }
 
     /*Function to sort array using insertion sort*/
-    void selectionSort(Integer[] arr, int left, int right)
+   private void selectionSort(Integer[] arr, int left, int right)
     {
         int n = right - left + 1;
         for (int i = left+1; i < n; ++i) {

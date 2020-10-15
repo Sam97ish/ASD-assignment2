@@ -2,8 +2,19 @@ package main.assignment2.impl;
 
 import main.assignment2.ArrayMath;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
+        int[] array = { 1, 7, 7,10 };
+        int[] array2 = { 1, 7, 10, 10 };
+        MyArrayMathImpl mymath = new MyArrayMathImpl();
+
+        System.out.println(mymath.isSameCollection(array, array2));
+
+        int arr [] = mymath.getPercentileRange(array, 90, 100);
+
+        System.out.println(Arrays.toString(arr));
         /*
         MyHashTableImpl hash = new MyHashTableImpl(0.98);
         hash.insert(4, 1);

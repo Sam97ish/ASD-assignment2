@@ -1,5 +1,6 @@
 package main.assignment2.impl;
 
+import com.sun.jdi.Value;
 import main.assignment2.*;
 
 public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSize {
@@ -196,8 +197,41 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
 
     }
 
+
+    public void insertForIsSame(K key, V value) {
+        // TODO Auto-generated method stub
+        int currentPos = findPos(key);
+
+        if(currentPos < 0){
+            rehash();
+            insert(key, value);
+            return;
+        }
+
+             if(array[currentPos]!= null && array[currentPos].getKey().equals(key)){
+            MapEntryImpl map = array[currentPos];
+            Integer currentValue = (Integer) map.getValue();
+            map.setValue(++currentValue);
+            map.setActive(true);
+            return;
+        }
+
+        array[currentPos] = new MapEntryImpl<K, V>(key, value, true);
+
+        currentSize++;
+        double currentLoadFactor = (double) currentSize / (double) array.length;
+
+        if (currentLoadFactor > MAXIMUM_ALLOWED_LOAD_FACTOR) {
+            //System.out.println("In the loading factor " + currentLoadFactor);
+            rehash();
+        }
+
+
+    }
+
+
     /**
-     * The reshahs that is callec when the hashtable reaches a certain lood
+     * The reshahs that is called when the hashtable reaches a certain lood
      * factor or when an insert fails.
      */
 
