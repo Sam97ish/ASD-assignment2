@@ -7,12 +7,19 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         int[] array = { 1, 7, 7,10 };
-        int[] array2 = { 1, 7, 10, 10 };
+        int[] array2 = { 1, 7, 10, 10,10 };
+
+        int [] array3 = new int[200];
+
+        for( int i = 0; i< 100; i++){
+            array3[i] = i+1;
+        }
+        System.out.println(Arrays.toString(array3));
         MyArrayMathImpl mymath = new MyArrayMathImpl();
 
         System.out.println(mymath.isSameCollection(array, array2));
 
-        int arr [] = mymath.getPercentileRange(array, 90, 100);
+        int arr [] = mymath.getPercentileRange(array3, 0, 20);
 
         System.out.println(Arrays.toString(arr));
         /*

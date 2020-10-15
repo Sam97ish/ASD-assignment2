@@ -235,11 +235,14 @@ public class MyArrayMathImpl implements ArrayMath {
         }
 
         //calculating the right index of the percintile.
-        int eachelm = 100 / arr.length;
+        double eachelm = (double)100 / (double)arr.length;
 
-        int lowerindex = lower / eachelm;
+        int lowerindex = (int) (lower / eachelm);
 
-        int upperindex = (upper / eachelm) - 1;
+        int upperindex = (int) ((upper / eachelm) - 1);
+
+        System.out.println(lowerindex);
+        System.out.println(upperindex);
 
         quickselect(arrToBeSorted,0, arr.length-1, lowerindex, upperindex); //sorting the range only
 
