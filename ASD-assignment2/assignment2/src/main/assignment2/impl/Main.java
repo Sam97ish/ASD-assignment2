@@ -7,6 +7,13 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
+        int[] arr = { 13, 25, 3, 31, 17, 19, 7, 29, 5, 139, 33, 21, 9, 1, 11, 35, 23, 15, 27, 37 };
+        MyArrayMathImpl mymath = new MyArrayMathImpl();
+
+        int[] arr1 = mymath.getPercentileRange(arr, 10, 50);
+        System.out.println(Arrays.toString(arr1));
+
+        /*
         int[] array = { 1, 7, 7,10 };
         int[] array2 = { 1, 7, 10, 10,10 };
 
@@ -35,6 +42,8 @@ public class Main {
 
         System.out.println(Arrays.toString(arr1));
         System.out.println(Arrays.toString(arr2));
+
+         */
 
 
         /*

@@ -190,8 +190,8 @@ public class MyArrayMathImpl implements ArrayMath {
     /*Function to sort array using insertion sort*/
    private void selectionSort(Integer[] arr, int left, int right)
     {
-        int n = right - left + 1;
-        for (int i = left+1; i < n; ++i) {
+
+        for (int i = left+1; i <= right; ++i) {
             int key = arr[i];
             int j = i - 1;
 
