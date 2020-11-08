@@ -10,18 +10,20 @@ public class Main {
         int[] array2 = { 1, 7, 10, 10,10 };
 
         int [] array3 = new int[200];
-
-        for( int i = 0; i< 100; i++){
+        MyHashTableImpl hash = new MyHashTableImpl(0.98);
+        for( int i = 0; i< 200; i++){
+            hash.insert(i,i);
             array3[i] = i+1;
         }
         System.out.println(Arrays.toString(array3));
         MyArrayMathImpl mymath = new MyArrayMathImpl();
 
-        System.out.println(mymath.isSameCollection(array, array2));
+        System.out.println(mymath.isSameCollection(array3, array3));
 
         int arr [] = mymath.getPercentileRange(array3, 0, 20);
 
         System.out.println(Arrays.toString(arr));
+        System.out.println(hash);
         /*
         MyHashTableImpl hash = new MyHashTableImpl(0.98);
         hash.insert(4, 1);
