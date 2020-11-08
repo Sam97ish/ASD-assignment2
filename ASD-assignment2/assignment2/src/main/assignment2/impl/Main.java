@@ -9,37 +9,6 @@ public class Main {
 
 
 
-        MyHashTableImpl hash = new MyHashTableImpl(0.75);
-        int arr [] = {0,11,22,33};
-        /*int arr [] = new int[100];
-
-        for (int i = 0; i < arr.length;  i++){
-            arr[i] = 11 * i;
-        }
-*/
-        // System.out.println(Arrays.toString(arr));
-
-        for(int i = 0; i <arr.length; i++){
-            hash.insert(arr[i], arr[i]);
-        }
-
-        System.out.println(hash);
-        System.out.println(hash.contains(0));
-        System.out.println(hash.contains(11));
-        System.out.println(hash.contains(22));
-        System.out.println(hash.contains(33));
-        System.out.println(hash.contains(44));
-        hash.insert(44,44);
-        hash.insert(55,55);
-        System.out.println(hash.contains(0));
-        System.out.println(hash.contains(11));
-        System.out.println(hash.contains(22));
-        System.out.println(hash.contains(33));
-        System.out.println(hash.contains(44));
-        System.out.println(hash.contains(55));
-        System.out.println(hash.contains(66));
-
-
    /*     hash.insert(4, 1);
         hash.insert(3, 2);
         //System.out.println(hash);
