@@ -7,48 +7,9 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
-        int[] arr = { 13, 25, 3, 31, 17, 19, 7, 29, 5, 139, 33, 21, 9, 1, 11, 35, 23, 15, 27, 37 };
-        MyArrayMathImpl mymath = new MyArrayMathImpl();
-
-        int[] arr1 = mymath.getPercentileRange(arr, 10, 50);
-        System.out.println(Arrays.toString(arr1));
-
-        /*
-        int[] array = { 1, 7, 7,10 };
-        int[] array2 = { 1, 7, 10, 10,10 };
-
-        int [] array3 = new int[1000];
-        int [] array4 = new int[1000];
-
-        for( int i = 0; i< 1000; i++){
-            array3[i] = i+1;
-        }
-
-        for( int i = 0; i<= 500; i++){
-            array4[i] = i*2;
-        }
-        for( int i = 999; i > 500; i--){
-            array4[i] = i*3;
-        }
-
-        MyArrayMathImpl mymath = new MyArrayMathImpl();
-
-        System.out.println(mymath.isSameCollection(array, array2)); //should be false.
-
-        System.out.println(mymath.isSameCollection(array3, array4)); //should be false.
-
-        int[] arr1 = mymath.getPercentileRange(array3, 50, 100);
-        int[] arr2 = mymath.getPercentileRange(array4, 50, 100);
-
-        System.out.println(Arrays.toString(arr1));
-        System.out.println(Arrays.toString(arr2));
-
-         */
 
 
-        /*
-        MyHashTableImpl hash = new MyHashTableImpl(0.98);
-        hash.insert(4, 1);
+   /*     hash.insert(4, 1);
         hash.insert(3, 2);
         //System.out.println(hash);
         hash.insert(2, 15);
@@ -64,11 +25,11 @@ public class Main {
         hash.insert(60, 600);
         hash.insert(82, 780);
         hash.insert(42, 75558);
-        hash.insert(49, 902);
-        hash.delete(49);
-        System.out.println(hash);
-        System.out.println(hash.contains(49));
-        */
+        hash.insert(49, 902);*/
+        // hash.delete(49);
+        //System.out.println(hash);
+        // System.out.println(hash.contains(49));
+
 
 
         /*
