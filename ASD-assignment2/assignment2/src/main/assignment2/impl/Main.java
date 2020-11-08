@@ -6,24 +6,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int[] array = { 1, 7, 7,10 };
-        int[] array2 = { 1, 7, 10, 10,10 };
 
-        int [] array3 = new int[200];
-        MyHashTableImpl hash = new MyHashTableImpl(0.98);
-        for( int i = 0; i< 200; i++){
-            hash.insert(i,i);
-            array3[i] = i+1;
-        }
-        System.out.println(Arrays.toString(array3));
-        MyArrayMathImpl mymath = new MyArrayMathImpl();
 
-        System.out.println(mymath.isSameCollection(array3, array3));
-
-        int arr [] = mymath.getPercentileRange(array3, 0, 20);
-
-        System.out.println(Arrays.toString(arr));
-        System.out.println(hash);
         /*
         MyHashTableImpl hash = new MyHashTableImpl(0.98);
         hash.insert(4, 1);

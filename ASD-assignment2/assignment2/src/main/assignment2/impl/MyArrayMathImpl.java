@@ -30,15 +30,15 @@ public class MyArrayMathImpl implements ArrayMath {
             hash2.insertForIsSame(array2[i], 1);
         }
 
-        boolean same = true;
+        boolean Notsame = false;
 
-        for(int i = 0; i < size1 & same; i++) {
+        for(int i = 0; i < size1 & !Notsame; i++) {
             Integer value = hash1.contains(array2[i]);
             Integer value2 = hash2.contains(array2[i]);
             if (value == null || value2 == null){
-                same = false;
+                Notsame = true;
             } else {
-                same = value.equals(value2);
+                Notsame = !value.equals(value2);
             }
         }
 
@@ -56,7 +56,7 @@ public class MyArrayMathImpl implements ArrayMath {
 
         }*/
 
-        return same;
+        return !Notsame;
     }
 
     /**
@@ -240,9 +240,6 @@ public class MyArrayMathImpl implements ArrayMath {
         int lowerindex = (int) (lower / eachelm);
 
         int upperindex = (int) ((upper / eachelm) - 1);
-
-        System.out.println(lowerindex);
-        System.out.println(upperindex);
 
         quickselect(arrToBeSorted,0, arr.length-1, lowerindex, upperindex); //sorting the range only
 
