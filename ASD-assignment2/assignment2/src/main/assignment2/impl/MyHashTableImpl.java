@@ -278,6 +278,9 @@ public class MyHashTableImpl<K, V> implements MyMap<K, V>, ArrayWithPublishedSiz
     public V contains(K key) {
         // TODO Auto-generated method stub
         int currentPos = findPos(key);
+        if (currentPos < 0){
+            return null;
+        }
         if(isActive(currentPos)){
             return array[currentPos].getValue();
         } else {
